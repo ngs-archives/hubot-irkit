@@ -126,7 +126,6 @@ module.exports = (robot) ->
       .header('Content-Type', 'application/x-www-form-urlencoded')
       .post("deviceid=#{deviceid}&clientkey=#{clientkey}&message=#{messageEncoded}") (err, res, body) ->
         if res.statusCode == 200
-          msg.send "Sueccessfully sent message: #{messageName} for #{deviceName}"
+          msg.send "Successfully sent message: #{messageName} for #{deviceName}"
         else
           msg.send "Failed to send #{messageName} for #{deviceName}"
-
