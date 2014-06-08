@@ -4,9 +4,15 @@ hubot-irkit
 A [Hubot] script to control [IRKit] the hackable remote controller.
 
 ```
-me > hubot irkit send message power for office-amp
-hubot > Sending power for office-amp..
-hubot > Sueccessfully sent message: power for office-amp
+me > hubot irkit register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
+hubot > Registering client: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX as office-amp...
+hubot > Device: office-amp is successfully registered.
+me > hubot irkit register message poweron for office-amp
+hubot > Waiting for IR message...
+hubot > Message: poweron for office-amp is successfully registered.
+me > hubot irkit send message poweron for office-amp
+hubot > Sending poweron for office-amp..
+hubot > Successfully sent message: poweron for office-amp
 ```
 
 Commands
@@ -49,7 +55,7 @@ Set it up following the official instruction and connect to your local network (
 
 ### 2. Retrieve your client token
 
-As descried in the [official document], retrieve your client token with `dns-sd` command.
+As descried in the [official document], retrieve your instance name with `dns-sd` command.
 
 ```bash
 dns-sd -B _irkit._tcp
