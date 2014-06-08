@@ -1,0 +1,32 @@
+{
+  "name": "hubot-irkit",
+  "version": "0.1.0",
+  "author": {
+    "name": "Atsushi Nagase",
+    "email": "a@ngs.io",
+    "url": "http://ngs.io/"
+  },
+  "description": "A Hubot script to control IRKit the hackable remote controller.",
+  "keywords": [
+    "hubot",
+    "irkit",
+    "gadget",
+    "controller"
+  ],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "main": "./src/index.coffee",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ngs/hubot-irkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngs/hubot-irkit/issues"
+  },
+  "devDependencies": {
+    "hubot": ">=2.4.1"
+  }
+}
