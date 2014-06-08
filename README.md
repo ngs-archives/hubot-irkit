@@ -49,7 +49,7 @@ Setup
 
 ### 1. Purchase and setup your IRKit
 
-If you don't have one yet, purchase IRKit from [Amazon] (Affiliate link :yen:).
+If you don't have one yet, purchase IRKit from [Amazon] Affiliate link :yen:.
 
 Set it up following the official instruction and connect to your local network (may be contained in the package).
 
