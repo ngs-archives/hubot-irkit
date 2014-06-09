@@ -1,6 +1,8 @@
 hubot-irkit
 ===========
 
+![](http://ja.ngs.io/images/2014-06-09-hubot-irkit/picture.jpg)
+
 A [Hubot] script to control [IRKit] the hackable remote controller.
 
 ```
