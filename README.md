@@ -1,6 +1,9 @@
 hubot-irkit
 ===========
 
+[![Build Status][travis-badge]][travis]
+[![npm-version][npm-badge]][npm]
+
 ![](http://ja.ngs.io/images/2014-06-09-hubot-irkit/picture.jpg)
 
 A [Hubot] script to control [IRKit] the hackable remote controller.
@@ -128,3 +131,7 @@ License
 [Hubot]: https://hubot.github.com/
 [Atsushi Nagase]: http://ngs.io/
 [MIT License]: LICENSE
+[travis-badge]: https://travis-ci.org/ngs/hubot-irkit.svg?branch=master
+[npm-badge]: http://img.shields.io/npm/v/hubot-irkit.svg
+[travis]: https://travis-ci.org/ngs/hubot-irkit
+[npm]: https://www.npmjs.org/package/hubot-irkit

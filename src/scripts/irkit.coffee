@@ -75,7 +75,7 @@ module.exports = (robot) ->
     else
       msg.send "No devices registered."
 
-  robot.respond /ir(?:kit)?\s+show\s(.+)$/i, (msg)->
+  robot.respond /ir(?:kit)?\s+show\s(?:device\s+)(.+)$/i, (msg)->
     devices = getDevices()
     name = msg.match[1]
     if device = getDevice msg, name
