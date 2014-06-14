@@ -26,6 +26,9 @@
   "bugs": {
     "url": "https://github.com/ngs/hubot-irkit/issues"
   },
+  "scripts": {
+    "test": "gulp mocha"
+  },
   "devDependencies": {
     "hubot": ">=2.7.5",
     "gulp": "^3.7.0",
