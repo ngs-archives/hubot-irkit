@@ -36,7 +36,7 @@ module.exports = (robot) ->
         msg.send "Message: #{messageName} for #{deviceName} is not registered."
     message
 
-  robot.respond /ir(?:kit)?\sreg(?:ister)?(?:\s+(?:dev|device))?\s+([^\s]+)\s+([^\s]+)$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+reg(?:ister)?(?:\s+(?:dev|device))?\s+([^\s]+)\s+([^\s]+)\s*$/i, (msg) ->
     devices = getDevices()
     clienttoken = msg.match[1]
     name = msg.match[2]
@@ -59,7 +59,7 @@ module.exports = (robot) ->
         robot.brain.save()
         msg.send "Device: #{name} is successfully registered."
 
-  robot.respond /ir(?:kit)?\sunreg(?:ister)?(?:\s+(?:dev|device))?\s+([^\s]+)$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+unreg(?:ister)?(?:\s+(?:dev|device))?\s+([^\s]+)\s*$/i, (msg) ->
     devices = getDevices()
     name = msg.match[1]
     return unless getDevice msg, name
@@ -67,7 +67,7 @@ module.exports = (robot) ->
     robot.brain.save()
     msg.send "Device: #{name} is successfully unregistered."
 
-  robot.respond /ir(?:kit)?\s+(?:list|ls)(?:\s+dev(?:ices)?)?$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+(?:list|ls)(?:\s+dev(?:ices)?)?\s*$/i, (msg) ->
     devices = getDevices()
     deviceNames = Object.keys devices
     if deviceNames.length > 0
@@ -75,13 +75,13 @@ module.exports = (robot) ->
     else
       msg.send "No devices registered."
 
-  robot.respond /ir(?:kit)?\s+show\s(?:device\s+)(.+)$/i, (msg)->
+  robot.respond /\s*ir(?:kit)?\s+show\s+(?:device\s+)?([^\s]+)\s*$/i, (msg)->
     devices = getDevices()
     name = msg.match[1]
     if device = getDevice msg, name
       msg.send JSON.stringify device, null, 2
 
-  robot.respond /ir(?:kit)?\sreg(?:ister)?\s+(?:message|msg)\s+([^\s]+)\s+for\s+([^\s]+)$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+reg(?:ister)?\s+(?:message|msg)\s+([^\s]+)\s+for\s+([^\s]+)\s*$/i, (msg) ->
     messageName = msg.match[1]
     deviceName = msg.match[2]
     return unless device = getDevice msg, deviceName
@@ -103,7 +103,7 @@ module.exports = (robot) ->
         robot.brain.save()
         msg.send "Message: #{messageName} for #{deviceName} is successfully registered."
 
-  robot.respond /ir(?:kit)?\sunreg(?:ister)?\s+(?:message|msg)\s+([^\s]+)\s+for\s+([^\s]+)$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+unreg(?:ister)?\s+(?:message|msg)\s+([^\s]+)\s+for\s+([^\s]+)\s*$/i, (msg) ->
     messageName = msg.match[1]
     deviceName = msg.match[2]
     return unless device = getDevice msg, deviceName
@@ -112,7 +112,7 @@ module.exports = (robot) ->
     robot.brain.save()
     msg.send "Message: #{messageName} for #{deviceName} is successfully unregistered."
 
-  robot.respond /ir(?:kit)?\s+(?:list|ls)\s+(?:messages|msg)\s+for\s+([^\s]+)/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+(?:list|ls)\s+(?:messages|msg)\s+for\s+([^\s]+)\s*$/i, (msg) ->
     deviceName = msg.match[1]
     return unless device = getDevice msg, deviceName
     messageNames = Object.keys device.messages || {}
@@ -121,7 +121,7 @@ module.exports = (robot) ->
     else
       msg.send "No messages registered for #{deviceName}."
 
-  robot.respond /ir(?:kit)?\ssend\s+(?:(?:message|msg)\s+)?([^\s]+)\s+for\s+([^\s]+)$/i, (msg) ->
+  robot.respond /\s*ir(?:kit)?\s+send\s+(?:(?:message|msg)\s+)?([^\s]+)\s+for\s+([^\s]+)\s*$/i, (msg) ->
     messageName = msg.match[1]
     deviceName = msg.match[2]
     return unless device = getDevice msg, deviceName
