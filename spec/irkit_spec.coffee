@@ -2,7 +2,6 @@ path = require 'path'
 Robot = require("hubot/src/robot")
 TextMessage = require("hubot/src/message").TextMessage
 nock = require 'nock'
-process.env.HUBOT_LOG_LEVEL = 'debug'
 chai = require 'chai'
 chai.use require 'chai-spies'
 { expect, spy } = chai
