@@ -9,13 +9,13 @@ hubot-irkit
 A [Hubot] script to control [IRKit] the hackable remote controller.
 
 ```
-me > hubot irkit register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
+me > hubot ir register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
 hubot > Registering client: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX as office-amp...
 hubot > Device: office-amp is successfully registered.
-me > hubot irkit register message poweron for office-amp
+me > hubot ir register message poweron for office-amp
 hubot > Waiting for IR message...
 hubot > Message: poweron for office-amp is successfully registered.
-me > hubot irkit send message poweron for office-amp
+me > hubot ir send message poweron for office-amp
 hubot > Sending poweron for office-amp..
 hubot > Successfully sent message: poweron for office-amp
 ```
@@ -24,14 +24,14 @@ Commands
 --------
 
 ```
-hubot irkit register device <client_token> <client_name> - Register IRKit device
-hubot irkit unregister device <client_name> - Unregister IRKit device
-hubot irkit show <client_name> - Show IRKit device
-hubot irkit list devices - List IRKit device
-hubot irkit register message <message_name> for <device_name> - Register IR message
-hubot irkit unregister message <message_name> for <device_name> - Unregister IR message
-hubot irkit list messages for <device_name> - List IR messages
-hubot irkit send message <message_name> for <device_name> - Send IR message
+hubot ir register device <client_token> <client_name> - Register IRKit device
+hubot ir unregister device <client_name> - Unregister IRKit device
+hubot ir show <client_name> - Show IRKit device
+hubot ir list devices - List IRKit device
+hubot ir register message <message_name> for <device_name> - Register IR message
+hubot ir unregister message <message_name> for <device_name> - Unregister IR message
+hubot ir list messages for <device_name> - List IR messages
+hubot ir send message <message_name> for <device_name> - Send IR message
 ```
 
 Installation
@@ -110,7 +110,7 @@ Content-Type: text/plain
 Finally you can register your IRKit device to your Hobot's brain.
 
 ```
-hubot irkit register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
+hubot ir register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
 ```
 
 Author
