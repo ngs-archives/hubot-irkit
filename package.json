@@ -27,7 +27,8 @@
     "url": "https://github.com/ngs/hubot-irkit/issues"
   },
   "scripts": {
-    "test": "gulp mocha"
+    "test": "gulp mocha",
+    "postinstall": "chest boost"
   },
   "devDependencies": {
     "hubot": ">=2.7.5",
@@ -42,6 +43,7 @@
     "chai-spies": "^0.5.1",
     "gulp-clean": "^0.3.0",
     "gulp-coffeelint": "^0.3.3",
-    "gulp-watch": "^0.6.5"
+    "gulp-watch": "^0.6.5",
+    "chest": "^0.1.5"
   }
 }
