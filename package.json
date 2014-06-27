@@ -28,7 +28,7 @@
   },
   "scripts": {
     "test": "gulp mocha",
-    "postinstall": "chest boost"
+    "postinstall": "/bin/bash -c '[[ -f ./node_modules/.bin/chest ]] && ./node_modules/.bin/chest boost' || :"
   },
   "devDependencies": {
     "hubot": ">=2.7.5",
