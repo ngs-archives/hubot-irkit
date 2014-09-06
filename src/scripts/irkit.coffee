@@ -17,6 +17,10 @@
 #   hubot ir unreg msg <message_name> for <device_name> - Unregister IR message
 #   hubot ir unregister device <client_name> - Unregister IRKit device
 #   hubot ir unregister message <message_name> for <device_name> - Unregister IR message
+#
+# Configuration:
+#   HUBOT_IRKIT_HTTP=1
+#   HUBOT_IRKIT_HTTP_METHOD=(GET|POST|PUT|DELETE)
 
 module.exports = (robot) ->
 
@@ -141,14 +145,19 @@ module.exports = (robot) ->
       else
         msg.send "Failed to send #{messageName} for #{deviceName}"
 
-  robot.router.get '/irkit/messages/:deviceName/:messageName', (httpReq, httpRes) ->
-    { deviceName, messageName } = httpReq.params
-    sent = sendIRMessage null, deviceName, messageName, (err, res, body) ->
-      if res?.statusCode == 200
-        httpRes.send 'OK'
-      else
+  if /^(1|true)$/.test process.env.HUBOT_IRKIT_HTTP?.toString()
+    method = process.env.HUBOT_IRKIT_HTTP_METHOD?.toUpperCase()
+    unless /^(GET|POST|PUT|DELETE)$/.test method
+      robot.log.warn "Unknown HTTP method #{method}. Using GET." if method?
+      method = 'GET'
+    robot.router[method.toLowerCase()] '/irkit/messages/:deviceName/:messageName', (httpReq, httpRes) ->
+      { deviceName, messageName } = httpReq.params
+      sent = sendIRMessage null, deviceName, messageName, (err, res, body) ->
+        if res?.statusCode == 200
+          httpRes.send 'OK'
+        else
+          httpRes.statusCode = 404
+          httpRes.send 'NG'
+      unless sent
         httpRes.statusCode = 404
         httpRes.send 'NG'
-    unless sent
-      httpRes.statusCode = 404
-      httpRes.send 'NG'
