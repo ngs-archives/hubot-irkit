@@ -49,6 +49,17 @@ Installation
   ["hubot-irkit"]
   ```
 
+Configurations
+--------------
+
+### `HUBOT_IRKIT_HTTP=1`
+
+Enable webhook routing to trigger message.
+
+### `HUBOT_IRKIT_HTTP_METHOD`
+
+HTTP method to route webhook. Default is `GET`. Supports `GET` `POST` `PUT` `DELETE`.
+
 Setup
 -----
 
@@ -111,6 +122,36 @@ Finally you can register your IRKit device to your Hobot's brain.
 
 ```
 hubot ir register device XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX office-amp
+```
+
+Webhook
+-------
+
+Enable webhooks by setting `HUBOT_IRKIT_HTTP` to `1`.
+
+```
+/irkit/messages/:deviceName/:messageName
+```
+
+HTTP method is `GET` by default. Set `HUBOT_IRKIT_HTTP_METHOD` to change.
+
+```bash
+heroku config:set HUBOT_IRKIT_HTTP=1 HUBOT_IRKIT_HTTP_METHOD=PUT
+```
+
+```bash
+$ curl -XPUT -i http://myhubot.herokuapp.com/irkit/messages/living/roomba
+
+HTTP/1.1 200 OK
+Server: Cowboy
+Connection: keep-alive
+X-Powered-By: hubot/Hubot
+Content-Type: text/html; charset=utf-8
+Content-Length: 2
+Date: Sat, 06 Sep 2014 17:41:26 GMT
+Via: 1.1 vegur
+
+OK
 ```
 
 Author
