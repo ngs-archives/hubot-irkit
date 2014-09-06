@@ -4,4 +4,10 @@ env:
 node_js:
   - "0.11"
   - "0.10"
+notifications:
+  on_success: always
+  on_failure: always
+  on_start: always
+  webhooks:
+    - 'http://ngs-hubot.herokuapp.com/travisci/hooks'
 
