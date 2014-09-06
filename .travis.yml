@@ -17,4 +17,5 @@ deploy:
     secure: gSaiFtITG1dgRDFSjS72pT6tD/twalhGDDQB4jv9/OiFZDSagspTRsykrZiqC8l9LEwdXptjWw1c2NKEGax31xh5dGNdP4jTD32HsUW0OzJBKaNgD5LP+7u2+yqM1t+9Sdpvn4MPW+ouXM75+xdeUCuzsKBKCq4ihxrA4zTXT54=
   on:
     tags: true
+    all_branches: true
     repo: ngs/hubot-irkit
