@@ -46,27 +46,25 @@ describe 'hubot-irkit', ->
 
     it 'should parse help', (done)->
       adapter.on 'send', (envelope, strings)->
-        ## Prefix bug with parseHelp
-        ## https://github.com/github/hubot/pull/712
         try
           expect(strings).to.deep.equal ["""
-          TestTestHubot help - Displays all of the help commands that TestHubot knows about.
-          TestTestHubot help <query> - Displays all help commands that match <query>.
-          TestTestHubot ir list devices - List IRKit device
-          TestTestHubot ir list messages for <device_name> - List IR messages
-          TestTestHubot ir ls - List IRKit device
-          TestTestHubot ir ls msg for <device_name> - List IR messages
-          TestTestHubot ir reg <client_token> <client_name> - Register IRKit device
-          TestTestHubot ir reg msg <message_name> for <device_name> - Register IR message
-          TestTestHubot ir register device <client_token> <client_name> - Register IRKit device
-          TestTestHubot ir register message <message_name> for <device_name> - Register IR message
-          TestTestHubot ir send <message_name> for <device_name> - Send IR message
-          TestTestHubot ir send message <message_name> for <device_name> - Send IR message
-          TestTestHubot ir show <client_name> - Show IRKit device
-          TestTestHubot ir unreg <client_name> - Unregister IRKit device
-          TestTestHubot ir unreg msg <message_name> for <device_name> - Unregister IR message
-          TestTestHubot ir unregister device <client_name> - Unregister IRKit device
-          TestTestHubot ir unregister message <message_name> for <device_name> - Unregister IR message
+          TestHubot help - Displays all of the help commands that TestHubot knows about.
+          TestHubot help <query> - Displays all help commands that match <query>.
+          TestHubot ir list devices - List IRKit device
+          TestHubot ir list messages for <device_name> - List IR messages
+          TestHubot ir ls - List IRKit device
+          TestHubot ir ls msg for <device_name> - List IR messages
+          TestHubot ir reg <client_token> <client_name> - Register IRKit device
+          TestHubot ir reg msg <message_name> for <device_name> - Register IR message
+          TestHubot ir register device <client_token> <client_name> - Register IRKit device
+          TestHubot ir register message <message_name> for <device_name> - Register IR message
+          TestHubot ir send <message_name> for <device_name> - Send IR message
+          TestHubot ir send message <message_name> for <device_name> - Send IR message
+          TestHubot ir show <client_name> - Show IRKit device
+          TestHubot ir unreg <client_name> - Unregister IRKit device
+          TestHubot ir unreg msg <message_name> for <device_name> - Unregister IR message
+          TestHubot ir unregister device <client_name> - Unregister IRKit device
+          TestHubot ir unregister message <message_name> for <device_name> - Unregister IR message
           """]
           do done
         catch e
