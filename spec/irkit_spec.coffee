@@ -14,6 +14,8 @@ describe 'hubot-irkit', ->
   beforeEach (done)->
     nock.disableNetConnect()
     nockScope = nock 'https://api.getirkit.com'
+    process.env.HUBOT_IRKIT_HTTP = yes
+    process.env.HUBOT_IRKIT_HTTP_METHOD = 'post'
     robot = new Robot null, 'mock-adapter', yes, 'TestHubot'
     nock.enableNetConnect '127.0.0.1'
     robot.adapter.on 'connected', ->
@@ -499,7 +501,7 @@ describe 'hubot-irkit', ->
           it 'sends OK', (done)->
             nockScope = nockScope.reply 200, 'ok'
             robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
-              .get() (err, res, body) ->
+              .post() (err, res, body) ->
                 try
                   expect(body).to.equal 'OK'
                   expect(res.statusCode).to.equal 200
@@ -510,7 +512,7 @@ describe 'hubot-irkit', ->
           it 'sends NG', (done)->
             nockScope = nockScope.reply 404, 'ng'
             robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
-              .get() (err, res, body) ->
+              .post() (err, res, body) ->
                 try
                   expect(body).to.equal 'NG'
                   expect(res.statusCode).to.equal 404
@@ -521,7 +523,7 @@ describe 'hubot-irkit', ->
         describe 'if does not exist', ->
           it 'sends NG', (done)->
             robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
-              .get() (err, res, body) ->
+              .post() (err, res, body) ->
                 try
                   expect(body).to.equal 'NG'
                   expect(res.statusCode).to.equal 404
