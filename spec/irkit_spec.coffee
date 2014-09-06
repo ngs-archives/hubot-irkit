@@ -15,6 +15,7 @@ describe 'hubot-irkit', ->
     nock.disableNetConnect()
     nockScope = nock 'https://api.getirkit.com'
     robot = new Robot null, 'mock-adapter', yes, 'TestHubot'
+    nock.enableNetConnect '127.0.0.1'
     robot.adapter.on 'connected', ->
       robot.loadFile path.resolve('.', 'src', 'scripts'), 'irkit.coffee'
       hubotScripts = path.resolve 'node_modules', 'hubot', 'src', 'scripts'
@@ -488,4 +489,45 @@ describe 'hubot-irkit', ->
                 done e
             adapter.receive new TextMessage user, msg
 
+      describe 'http', ->
+        describe 'if exists', ->
+          beforeEach ->
+            robot.brain.data.irkitDevices = foo:
+              deviceid: '1234'
+              clientkey: 'abcdef'
+              clienttoken: 'abcd1234'
+              messages:
+                poweron: test: 1
+          it 'sends OK', (done)->
+            nockScope = nockScope.reply 200, 'ok'
+            robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
+              .get() (err, res, body) ->
+                try
+                  expect(body).to.equal 'OK'
+                  expect(res.statusCode).to.equal 200
+                  expect(nockScope.isDone()).to.be.true
+                  do done
+                catch e
+                  done e
+          it 'sends NG', (done)->
+            nockScope = nockScope.reply 404, 'ng'
+            robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
+              .get() (err, res, body) ->
+                try
+                  expect(body).to.equal 'NG'
+                  expect(res.statusCode).to.equal 404
+                  expect(nockScope.isDone()).to.be.true
+                  do done
+                catch e
+                  done e
+        describe 'if does not exist', ->
+          it 'sends NG', (done)->
+            robot.http('http://127.0.0.1:8080/irkit/messages/foo/poweron')
+              .get() (err, res, body) ->
+                try
+                  expect(body).to.equal 'NG'
+                  expect(res.statusCode).to.equal 404
+                  do done
+                catch e
+                  done e
 
