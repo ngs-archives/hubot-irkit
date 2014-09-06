@@ -25,14 +25,14 @@ module.exports = (robot) ->
 
   getDevice = (msg, name, silent = no)->
     devices = getDevices()
-    if !(device = devices[name]) && !silent
+    if !(device = devices[name]) && !silent && msg
       msg.send "Device: #{name} is not registered."
     device
 
   getMessage = (msg, deviceName, messageName, silent = no)->
     if device = getDevice msg, deviceName
       device.messages ||= {}
-      if !(message = device.messages[messageName]) && !silent
+      if !(message = device.messages[messageName]) && !silent && msg
         msg.send "Message: #{messageName} for #{deviceName} is not registered."
     message
 
@@ -121,18 +121,34 @@ module.exports = (robot) ->
     else
       msg.send "No messages registered for #{deviceName}."
 
+  sendIRMessage = (msg, deviceName, messageName, callback)->
+    return no unless device = getDevice msg, deviceName
+    return no unless message = getMessage msg, deviceName, messageName
+    {clientkey, deviceid} = device
+    messageEncoded = encodeURIComponent JSON.stringify message
+    msg?.send "Sending #{messageName} for #{deviceName}..."
+    robot.http('https://api.getirkit.com/1/messages')
+      .header('Content-Type', 'application/x-www-form-urlencoded')
+      .post("deviceid=#{deviceid}&clientkey=#{clientkey}&message=#{messageEncoded}") callback
+    yes
+
   robot.respond /\s*ir(?:kit)?\s+send\s+(?:(?:message|msg)\s+)?([^\s]+)\s+for\s+([^\s]+)\s*$/i, (msg) ->
     messageName = msg.match[1]
     deviceName = msg.match[2]
-    return unless device = getDevice msg, deviceName
-    return unless message = getMessage msg, deviceName, messageName
-    {clientkey, deviceid} = device
-    messageEncoded = encodeURIComponent JSON.stringify message
-    msg.send "Sending #{messageName} for #{deviceName}..."
-    robot.http('https://api.getirkit.com/1/messages')
-      .header('Content-Type', 'application/x-www-form-urlencoded')
-      .post("deviceid=#{deviceid}&clientkey=#{clientkey}&message=#{messageEncoded}") (err, res, body) ->
-        if res.statusCode == 200
-          msg.send "Successfully sent message: #{messageName} for #{deviceName}"
-        else
-          msg.send "Failed to send #{messageName} for #{deviceName}"
+    sendIRMessage msg, deviceName, messageName, (err, res, body) ->
+      if res?.statusCode == 200
+        msg.send "Successfully sent message: #{messageName} for #{deviceName}"
+      else
+        msg.send "Failed to send #{messageName} for #{deviceName}"
+
+  robot.router.get '/irkit/messages/:deviceName/:messageName', (httpReq, httpRes) ->
+    { deviceName, messageName } = httpReq.params
+    sent = sendIRMessage null, deviceName, messageName, (err, res, body) ->
+      if res?.statusCode == 200
+        httpRes.send 'OK'
+      else
+        httpRes.statusCode = 404
+        httpRes.send 'NG'
+    unless sent
+      httpRes.statusCode = 404
+      httpRes.send 'NG'

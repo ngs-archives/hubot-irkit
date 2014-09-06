@@ -31,7 +31,7 @@
     "postinstall": "/bin/bash -c '[[ -f ./node_modules/.bin/chest ]] && ./node_modules/.bin/chest boost' || :"
   },
   "devDependencies": {
-    "hubot": ">=2.7.5",
+    "hubot": ">=2.8.0",
     "gulp": "^3.7.0",
     "coffee-script": "~1.7.1",
     "gulp-coffee": "^2.0.1",
