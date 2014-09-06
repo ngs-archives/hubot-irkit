@@ -141,7 +141,6 @@ module.exports = (robot) ->
       else
         msg.send "Failed to send #{messageName} for #{deviceName}"
 
-
   robot.router.get '/irkit/messages/:deviceName/:messageName', (httpReq, httpRes) ->
     { deviceName, messageName } = httpReq.params
     sent = sendIRMessage null, deviceName, messageName, (err, res, body) ->
